@@ -59,6 +59,16 @@ class Tree
         return "The value isn't in the tree"
     end
 
+    def find(value, node=@root)
+        return node if node.data == value
+
+        if node.data > value
+            find(value, node.left)
+        else
+            find(value, node.right)
+        end
+    end
+
     private
     def clean_array(array)
         return array.uniq.sort
@@ -71,7 +81,6 @@ class Tree
         else
             father.right = find_new_son(son)
         end
-        require 'pry-byebug'; binding.pry
     end
 
     private
