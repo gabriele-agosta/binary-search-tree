@@ -70,11 +70,9 @@ class Tree
     end
 
     def level_order()
-        # nella coda devo prendere sempre il primo elemento, non l'ultimo
         queue = Array.new 
         node = @root
         result = Array.new
-        # require "pry-byebug"; binding.pry
         queue.append(node) if !node.nil?
 
         until queue.empty?
@@ -110,6 +108,23 @@ class Tree
         postorder(node.left, result)
         postorder(node.right, result)
         result << node.data unless node.data.nil?
+    end
+
+    def height(node=@root)
+        if node.is_a? Integer
+            node = find(node)
+        end
+
+        return -1 if node.nil?
+        return 1 + [height(node.left) , height(node.right)].max
+    end
+
+    def depth(value=@root.data, node=@root)
+        return -1 if node.nil? 
+
+        return 0 if value == node.data 
+
+        return 1 + [depth(value, node.left), depth(value, node.right)].max
     end
 
     private
