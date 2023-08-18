@@ -88,6 +88,30 @@ class Tree
         return result
     end
 
+    def inorder(node=@root, result=[])
+        return result if node.nil? 
+
+        inorder(node.left, result)
+        result << node.data unless node.data.nil?
+        inorder(node.right, result)
+    end
+
+    def preorder(node=@root, result=[])
+        return result if node.nil? 
+
+        result << node.data unless node.data.nil?
+        preorder(node.left, result)
+        preorder(node.right, result)
+    end
+
+    def postorder(node=@root, result=[])
+        return result if node.nil? 
+
+        postorder(node.left, result)
+        postorder(node.right, result)
+        result << node.data unless node.data.nil?
+    end
+
     private
     def clean_array(array)
         return array.uniq.sort

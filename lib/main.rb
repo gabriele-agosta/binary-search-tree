@@ -7,4 +7,7 @@ tree.build_root(array)
 tree.insert(25)
 tree.delete(23)
 tree.find(67)
-print tree.level_order()
+p "Level order #{tree.level_order()}"
+p "Inorder #{tree.inorder()}"
+p "Preorder #{tree.preorder()}"
+p "Postorder #{tree.postorder()}"
