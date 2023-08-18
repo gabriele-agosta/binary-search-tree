@@ -69,6 +69,25 @@ class Tree
         end
     end
 
+    def level_order()
+        # nella coda devo prendere sempre il primo elemento, non l'ultimo
+        queue = Array.new 
+        node = @root
+        result = Array.new
+        # require "pry-byebug"; binding.pry
+        queue.append(node) if !node.nil?
+
+        until queue.empty?
+            result << node.data unless node.data.nil?
+            queue << node.left unless node.left.nil?
+            queue << node.right unless node.right.nil?
+            queue.shift
+            node = queue[0]
+        end
+        
+        return result
+    end
+
     private
     def clean_array(array)
         return array.uniq.sort
