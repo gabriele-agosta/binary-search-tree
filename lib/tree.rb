@@ -4,18 +4,17 @@ class Tree
 
     def initialize(array=[])
         @array = clean_array(array)
-        @root = build_root(@array)
+        @root = build_tree(@array)
     end
 
-    def build_root(array=[], left_pointer=0, right_pointer=array.length)
+    def build_tree(array=[], left_pointer=0, right_pointer=array.length)
         return nil if left_pointer > right_pointer
-        
-        # require 'pry-byebug'; binding.pry
+    
         mid = (left_pointer + right_pointer) / 2
         root = Node.new(array[mid])
         
-        root.left = build_root(array, left_pointer, mid - 1)
-        root.right = build_root(array, mid + 1, right_pointer)
+        root.left = build_tree(array, left_pointer, mid - 1)
+        root.right = build_tree(array, mid + 1, right_pointer)
 
         return root
     end
@@ -39,9 +38,6 @@ class Tree
         son = nil
 
         until father.nil? && father.data == value
-            # Mi serve mantenere padre e figlio per evitare di scorrere due volte quando devo cancellare
-            # Quando uno dei due figli del padre ha il valore, allora esco dal ciclo e chiamo la funzione
-
             if father.data > value
                 son = father.left if father.left.data == value
             elsif father.data < value
@@ -125,6 +121,18 @@ class Tree
         return 0 if value == node.data 
 
         return 1 + [depth(value, node.left), depth(value, node.right)].max
+    end
+
+    def balanced?()
+        left = @root.left
+        right = @root.right
+
+        return height(left) == height(right)
+    end
+
+    def rebalance()
+        nodes = inorder()
+        @root = build_tree(nodes)
     end
 
     private
